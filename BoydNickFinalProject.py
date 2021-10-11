@@ -97,7 +97,7 @@ class MainFrame(Frame):
         self.spinChildVal.set(0)
         self.spinVoucherVal.set(0)
         self.spinFastPassVal.set(0)
-        
+                
     def spinClick(self, box, value, label): # box=spinbox, value=price of item denoted by box, label=label denoting total cost of that item
         """Function for clicking a spinbox button"""
         # Gets value from spinbox, converts to integer and set as variable 'temp'
@@ -264,9 +264,14 @@ class MainFrame(Frame):
         self.txtEmail = Entry(self, font = 12, width=40)
 
         # Place the Entry Boxes
-        self.txtName.grid(row=1, column=1, columnspan=3,)
+        self.txtName.grid(row=1, column=1, columnspan=3)
         self.txtAddress.grid(row=2, column=1, columnspan=3)
         self.txtEmail.grid(row=3, column=1, columnspan=3)
+
+        # Enter default text into the entry boxes
+        self.txtName.insert(0, "ex. Joe Smith")
+        self.txtAddress.insert(0, "ex. 123 Main Street")
+        self.txtEmail.insert(0, "ex. name@example.com")
 
     def createSpinBoxes(self):
         """Function to create the SpinBoxes on the Order Window"""
@@ -503,14 +508,14 @@ def writeToFile(name, address, email, adult, child, vouchers, fastpass, total): 
     """Function to writes orders to file"""
     # Use try-except to check if a file already exists
     try:
-        f=open("CJ's Amusements.txt", "r")
+        f=open("CJ's Amusements Orders.txt", "r")
     # If file doesn't exist create the file and write the header
     except:
-        f=open("CJ's Amusements.txt", "a")
+        f=open("CJ's Amusements Orders.txt", "a")
         f.write("Name, Address, Email, Adult Tickets, Child Tickets, Food Vouchers, Fast Pass Tickets, Total Cost\n")
         f.close()
     # Append order info to existing file
-    f=open("CJ's Amusements.txt", "a")
+    f=open("CJ's Amusements Orders.txt", "a")
     f.write(f'\n{name}, {address}, {email}, {adult}, {child}, {vouchers}, {fastpass}, {total}')
     f.close
 
@@ -518,20 +523,20 @@ def readFile():
     """Function to read number of orders from existing file"""
     # Use try-except to check if a file already exists
     try:
-        f=open("CJ's Amusements.txt", "r")
+        f=open("CJ's Amusements Orders.txt", "r")
     # Display error if no existing file
     except:
-        print("No Existing File")
+        print("There are 0 previous orders")
     else:
         # If file exists open for reading   
-        f=open("CJ's Amusements.txt", "r")   
+        f=open("CJ's Amusements Orders.txt", "r")   
         # Start count at -2 to remove the header lines 
         count = -2
         # Count the lines and add to count
         for line in f:
             count +=1   
         # Print the number of orders in terminal       
-        print(f'There are {count} recorded orders')
+        print(f'There are {count} recorded order(s)')
         f.close
    
 main()
